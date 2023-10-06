@@ -69,7 +69,7 @@ def get_sentiment(text):
     return sentiment_scores
 
 # Streamlit app
-st.title("Review and Sentiment Analysis")
+st.title("iPhone Review and Sentiment Analysis")
 
 # Text input
 text = st.text_area("Write a text to analyze:")
@@ -82,7 +82,7 @@ if st.button("Analyze"):
     if review[0] == 1:
         review_str = f"This is a review with probability {round(review[1]*100,1)}%."
     else:
-        review_str = f"This is not a review with probability {round(review[1]*100,1)}%."
+        review_str = f"This is not an iPhone review with probability {round(review[1]*100,1)}%."
     
     # sentiment
     sentiment = get_sentiment(text)

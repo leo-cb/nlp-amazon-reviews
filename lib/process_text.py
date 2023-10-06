@@ -141,7 +141,3 @@ def process_amazon_reviews_file(input_file, output_file):
   df_lemmatized.to_parquet(output_file)
 
   return df_lemmatized
-
-if __name__ == "__main__":
-    df_lemmatized = process_amazon_reviews_file('data/APPLE_iPhone_SE.csv', 'data/amazon_reviews.parquet')
-    print(len(df_lemmatized))

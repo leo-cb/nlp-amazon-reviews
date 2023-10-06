@@ -1,6 +1,6 @@
 import streamlit as st
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
-from process_text import clean_text, tokenize_document, lemmatize_doc
+from lib.process_text import clean_text, tokenize_document, lemmatize_doc
 from nltk.corpus import stopwords
 import torch
 import torch.nn.functional as F

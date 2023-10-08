@@ -30,6 +30,9 @@ def text_to_tokens(text: str):
     text_nostop = remove_stopwords_sentence(tokenized_text_no_gibberish)
     print(text_nostop)
 
+    if len(text_nostop) < 2:
+        return []
+
     text_lemmatized = lemmatize_doc(text_nostop)
     print(text_lemmatized)
 
@@ -39,13 +42,14 @@ def text_to_tokens(text: str):
     return tokens_bert
 
 def predict_review(text : str):
+    
     # Load the tokenizer and model
     model = AutoModelForSequenceClassification.from_pretrained("data/review_classifier")
 
     tokens_bert = text_to_tokens(text)
     
-    # Check if the word is in the set of valid English words
-    return word not in english_words
+    if len(tokens_bert) < 2:
+        return 0, 1
 
     predictions = model(**tokens_bert)
 
@@ -84,8 +88,6 @@ nltk.download('punkt',download_dir=nltk.data.path[0])
 nltk.download('wordnet',download_dir=nltk.data.path[0])
 nltk.download('stopwords',download_dir=nltk.data.path[0])
 nltk.download("words",download_dir=nltk.data.path[0])
-
-english_words = set(words.words())
 
 # Set the page layout
 st.set_page_config(layout="wide")

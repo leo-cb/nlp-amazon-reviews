@@ -93,7 +93,7 @@ nltk.download("words",download_dir=nltk.data.path[0])
 st.set_page_config(layout="wide")
 
 # Set the title
-st.title("iPhone Review and Sentiment Analysis")
+st.title("Smartphone Review and Sentiment Analysis")
 
 # Text input
 text = st.text_area("Write a text to analyze:")
@@ -106,7 +106,7 @@ if st.button("Analyze"):
     if review[0] == 1:
         review_str = f"This is a review with probability {round(review[1]*100,1)}%."
     else:
-        review_str = f"This is not an iPhone review with probability {round(review[1]*100,1)}%."
+        review_str = f"This is not a smartphone review with probability {round(review[1]*100,1)}%."
     
     # sentiment
     sentiment = get_sentiment(text)

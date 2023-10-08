@@ -1,7 +1,7 @@
 import streamlit as st
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from lib.process_text import clean_text, tokenize_document, lemmatize_doc
-from nltk.corpus import stopwords
+from nltk.corpus import stopwords, words
 import torch
 import torch.nn.functional as F
 import nltk
@@ -15,13 +15,19 @@ def remove_stopwords_sentence(tokens):
     
     return tokens
 
+def is_gibberish(word):
+    # Convert the word to lowercase for case-insensitive matching
+    word = word.lower()
+
 def text_to_tokens(text: str):
     tokenizer = AutoTokenizer.from_pretrained("data/review_classifier_tokenizer")
 
     tokenized_text = tokenize_document(text)
     print(tokenized_text)
 
-    text_nostop = remove_stopwords_sentence(tokenized_text)
+    tokenized_text_no_gibberish = [word for word in tokenized_text if word in words.words() or word.lower() == "iphone"]
+
+    text_nostop = remove_stopwords_sentence(tokenized_text_no_gibberish)
     print(text_nostop)
 
     text_lemmatized = lemmatize_doc(text_nostop)
@@ -37,6 +43,9 @@ def predict_review(text : str):
     model = AutoModelForSequenceClassification.from_pretrained("data/review_classifier")
 
     tokens_bert = text_to_tokens(text)
+    
+    # Check if the word is in the set of valid English words
+    return word not in english_words
 
     predictions = model(**tokens_bert)
 
@@ -74,6 +83,9 @@ nltk.download('vader_lexicon',download_dir=nltk.data.path[0])
 nltk.download('punkt',download_dir=nltk.data.path[0])
 nltk.download('wordnet',download_dir=nltk.data.path[0])
 nltk.download('stopwords',download_dir=nltk.data.path[0])
+nltk.download("words",download_dir=nltk.data.path[0])
+
+english_words = set(words.words())
 
 # Set the page layout
 st.set_page_config(layout="wide")

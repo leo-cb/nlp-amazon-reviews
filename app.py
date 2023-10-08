@@ -6,6 +6,7 @@ import torch
 import torch.nn.functional as F
 import nltk
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
+import os
 
 def remove_stopwords_sentence(tokens):
     for word in tokens:
@@ -57,8 +58,7 @@ def predict_review(text : str):
     return int(predicted_class), float(max(probabilities[0]))
 
 def get_sentiment(text):
-    nltk.download('vader_lexicon')
-
+    
     # initialize the VADER sentiment intensity analyzer
     sid = SentimentIntensityAnalyzer()
 
@@ -68,7 +68,17 @@ def get_sentiment(text):
 
     return sentiment_scores
 
-# Streamlit app
+# download nltk data
+nltk.data.path = [os.path.join(os.getcwd(), "data/nltk_data")]
+nltk.download('vader_lexicon',download_dir=nltk.data.path[0])
+nltk.download('punkt',download_dir=nltk.data.path[0])
+nltk.download('wordnet',download_dir=nltk.data.path[0])
+nltk.download('stopwords',download_dir=nltk.data.path[0])
+
+# Set the page layout
+st.set_page_config(layout="wide")
+
+# Set the title
 st.title("iPhone Review and Sentiment Analysis")
 
 # Text input

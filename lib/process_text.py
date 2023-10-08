@@ -16,6 +16,12 @@ import nltk
 from collections import defaultdict
 import matplotlib.pyplot as plt
 from nltk.stem import WordNetLemmatizer
+import os 
+
+nltk.data.path = [os.path.join(os.getcwd(), "data/nltk_data")]
+nltk.download('vader_lexicon')
+nltk.download('punkt')
+nltk.download('wordnet')
 
 @contextlib.contextmanager
 def tqdm_joblib(tqdm_object):
@@ -78,6 +84,7 @@ def get_most_frequent_words(corpus, dictionary):
     return sorted_words
 
 def lemmatize_doc(document):
+    nltk.download('wordnet')
     lemmatizer = WordNetLemmatizer()
     document_lemmatized = []
     for word in document:
@@ -97,7 +104,6 @@ def remove_stopwords(token_docs, WORDS_FILTER = []):
         documents_no_stop.append(words_filter)
     
     return documents_no_stop
-
 
 def process_amazon_reviews_file(input_file, output_file):
   

@@ -91,7 +91,7 @@ def get_sentiment(text):
 st.set_page_config(layout="wide")
 
 # Set the title
-st.title("Smartphone Review and Sentiment Analysis")
+st.title("Smartphone Review & Sentiment Analysis")
 
 # Text input
 text = st.text_area("Write a text to analyze:")

@@ -6,6 +6,7 @@ train_amazon_review_identification.ipynb
 .venv/
 .vscode/
 __pycache__/
+images/
 logs/
 results/
 data/amazon_reviews.parquet

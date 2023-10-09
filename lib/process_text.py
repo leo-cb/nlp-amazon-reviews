@@ -18,11 +18,6 @@ import matplotlib.pyplot as plt
 from nltk.stem import WordNetLemmatizer
 import os 
 
-nltk.data.path = [os.path.join(os.getcwd(), "data/nltk_data")]
-nltk.download('vader_lexicon')
-nltk.download('punkt')
-nltk.download('wordnet')
-
 @contextlib.contextmanager
 def tqdm_joblib(tqdm_object):
     """Context manager to patch joblib to report into tqdm progress bar given as argument"""
@@ -84,7 +79,6 @@ def get_most_frequent_words(corpus, dictionary):
     return sorted_words
 
 def lemmatize_doc(document):
-    nltk.download('wordnet')
     lemmatizer = WordNetLemmatizer()
     document_lemmatized = []
     for word in document:
@@ -93,7 +87,6 @@ def lemmatize_doc(document):
     return document_lemmatized
 
 def remove_stopwords(token_docs, WORDS_FILTER = []):
-    nltk.download('stopwords')
     stop_words = stopwords.words('english')
     documents_no_stop = []
     for doc in tqdm(token_docs): # each doc is a list of words
@@ -122,9 +115,6 @@ def process_amazon_reviews_file(input_file, output_file):
   for doc in df['Reviews']:
       token_docs.append(tokenize_document(doc))
   print(token_docs[0])
-
-  # remove stopwords, filter words
-  nltk.download('stopwords')
 
   documents_no_stop = remove_stopwords(token_docs)
 

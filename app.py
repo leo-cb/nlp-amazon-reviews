@@ -8,6 +8,18 @@ import nltk
 from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import os
 
+# Load the tokenizer and model
+model = AutoModelForSequenceClassification.from_pretrained("data/review_classifier")
+tokenizer = AutoTokenizer.from_pretrained("data/review_classifier_tokenizer")
+
+# download nltk data
+nltk.data.path = [os.path.join(os.getcwd(), "data/nltk_data")]
+nltk.download('vader_lexicon',download_dir=nltk.data.path[0])
+nltk.download('punkt',download_dir=nltk.data.path[0])
+nltk.download('wordnet',download_dir=nltk.data.path[0])
+nltk.download('stopwords',download_dir=nltk.data.path[0])
+nltk.download("words",download_dir=nltk.data.path[0])
+
 def remove_stopwords_sentence(tokens):
     for word in tokens:
         if word in stopwords.words('english'):
@@ -20,8 +32,6 @@ def is_gibberish(word):
     word = word.lower()
 
 def text_to_tokens(text: str):
-    tokenizer = AutoTokenizer.from_pretrained("data/review_classifier_tokenizer")
-
     tokenized_text = tokenize_document(text)
     print(tokenized_text)
 
@@ -42,10 +52,6 @@ def text_to_tokens(text: str):
     return tokens_bert
 
 def predict_review(text : str):
-    
-    # Load the tokenizer and model
-    model = AutoModelForSequenceClassification.from_pretrained("data/review_classifier")
-
     tokens_bert = text_to_tokens(text)
     
     if len(tokens_bert) < 2:
@@ -80,14 +86,6 @@ def get_sentiment(text):
     sentiment_scores = sid.polarity_scores(' '.join(lemmatized_text))
 
     return sentiment_scores
-
-# download nltk data
-nltk.data.path = [os.path.join(os.getcwd(), "data/nltk_data")]
-nltk.download('vader_lexicon',download_dir=nltk.data.path[0])
-nltk.download('punkt',download_dir=nltk.data.path[0])
-nltk.download('wordnet',download_dir=nltk.data.path[0])
-nltk.download('stopwords',download_dir=nltk.data.path[0])
-nltk.download("words",download_dir=nltk.data.path[0])
 
 # Set the page layout
 st.set_page_config(layout="wide")

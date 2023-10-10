@@ -1,6 +1,6 @@
 # NLP Smartphone Reviews
 
-Performs topic modelling, classification based with a BERT model and deploys with a streamlit web application. Data was collected from this <a href="https://www.kaggle.com/datasets/kmldas/apple-iphone-se-reviews-ratings">Apple iPhone reviews dataset</a>, which contains iPhone reviews (in text), and their corresponding title and star-rating. A live website running the application can be accessed <a href="http://149.56.100.90:8501/">here</a>.
+Performs topic modelling, classification with a BERT model and deployment with a streamlit web application. Data was collected from this <a href="https://www.kaggle.com/datasets/kmldas/apple-iphone-se-reviews-ratings">Apple iPhone reviews dataset</a>, which contains iPhone reviews (in text), and their corresponding title and star-rating. A live website running the application can be accessed <a href="http://149.56.100.90:8501/">here</a>.
 
 ## 'topic-modelling-sentiment' notebook  
 Exploratory analysis of frequently mentioned topics (battery, camera, etc...). Performs topic modelling (LDA model) and associates sentiment with each topic, showing them in a boxplot. Exports a dataset (parquet file) with processed reviews text.
